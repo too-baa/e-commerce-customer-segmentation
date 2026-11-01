@@ -27,22 +27,22 @@ Traditional rule-based segmentation often misses subtle behavioral shifts in pur
 ---
 
 ## Pipeline Architecture
-Raw Invoices ──> RFM Aggregation ──> Log1p & StandardScaler
-│
-┌────────────────────────────┴──────────────────────────┐
-▼                                                       ▼
-K-Means Clustering                                       DBSCAN Clustering
-• Elbow Method (Inertia)                               • k-NN Distance Knee (eps=0.45)
-• Silhouette Score (K=4)                               • Anomaly/Noise Isolation (-1)
-│                                                       │
-└────────────────────────────┬──────────────────────────┘
-▼
-Dimensionality Reduction
-• PCA (Global Variance)
-• t-SNE (Local Manifold)
-│
-▼
-Actionable Marketing Personas
+```mermaid
+flowchart TD
+    A[Raw Invoices] --> B[RFM Aggregation]
+    B --> C[Log1p Transform & StandardScaler]
+    
+    C --> D[K-Means Clustering]
+    C --> E[DBSCAN Clustering]
+    
+    D --> D1[Elbow Method & Silhouette K=4]
+    E --> E1[k-NN Knee Plot & Noise Isolation -1]
+    
+    D1 --> F[Dimensionality Reduction: PCA & t-SNE]
+    E1 --> F
+    
+    F --> G[Actionable Marketing Personas]
+```
 
 ---
 
